@@ -1,33 +1,16 @@
-const express = require('express');
-const serverless = require('serverless-http');
-const path = require('path');
+import express, { Router } from "express";
+import serverless from "serverless-http";
 
-const app = express();
-const router = express.Router();
-const port = process.env.PORT || 3000;
+const api = express();
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
-
-router.get('/api', (req, res) => {
+const router = Router();
+router.get("/hello", (req, res) => {
     const jsonData = require('./public/data.json');
     res.json(jsonData);
   });
 
-  
-  router.get('/', (req, res) => {
-    const jsonData = require('./public/data.json');
-    res.json(jsonData);
-  });
-  
-  // Serve static files from the 'public' directory
-  app.use('/api', router);
-  
-  
-  module.exports.handler = serverless(app);
+api.use("/api/", router);
+
+export const handler = serverless(api);
+
   
