@@ -14,7 +14,7 @@ app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
-app.get('/api', (req, res) => {
+router.get('/api', (req, res) => {
     const jsonData = require('./public/data.json');
     res.json(jsonData);
   });
